@@ -1,0 +1,67 @@
+import {
+  calendarChangeMonthInit,
+  calendarAddReminderInit,
+  calendarSelectedReminderInit,
+  calendarUpdateReminderInit,
+  calendarDeleteRemindersByIdInit
+} from './actions';
+
+export const calendarChangeMonthDispatch = date => {
+  return async dispatch => {
+    try {
+      dispatch(calendarChangeMonthInit(date));
+      return { msg: `month changed`, err: false };
+    } catch (error) {
+      console.error(error);
+      return { msg: 'An error was generated please consult the administrator!' };
+    }
+  };
+};
+
+export const calendarAddReminderDispatch = reminder => {
+  return async dispatch => {
+    try {
+      dispatch(calendarAddReminderInit(reminder));
+      return { msg: `month changed`, err: false };
+    } catch (error) {
+      console.error(error);
+      return { msg: 'An error was generated please consult the administrator!' };
+    }
+  };
+};
+
+export const calendarSelectedReminderDispatch = reminder => {
+  return async dispatch => {
+    try {
+      dispatch(calendarSelectedReminderInit(reminder));
+      return { msg: `month changed`, err: false };
+    } catch (error) {
+      console.error(error);
+      return { msg: 'An error was generated please consult the administrator!' };
+    }
+  };
+};
+
+export const calendarUpdateReminderDispatch = reminder => {
+  return async dispatch => {
+    try {
+      dispatch(calendarUpdateReminderInit(reminder));
+      return { msg: `month changed`, err: false };
+    } catch (error) {
+      console.error(error);
+      return { msg: 'An error was generated please consult the administrator!' };
+    }
+  };
+};
+
+export const calendarDeleteRemindersByIdIDispatch = reminders => {
+  return async dispatch => {
+    try {
+      dispatch(calendarDeleteRemindersByIdInit(reminders));
+      return { msg: `month changed`, err: false };
+    } catch (error) {
+      console.error(error);
+      return { msg: 'An error was generated please consult the administrator!' };
+    }
+  };
+};
