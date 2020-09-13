@@ -21,7 +21,7 @@ const calendar = (state = initialState, { type, payload }) => {
       return {
         ...state,
         error: null,
-        currentDate: payload.date,
+        currentDate: payload,
       };
     }
 

@@ -25,3 +25,54 @@ export const daysWeek = {
   5: 'Friday',
   6: 'Saturday',
 };
+
+export const defaultColors = [
+  {
+    color: '#D50000',
+    label: 'Tomato',
+  },
+  {
+    color: '#E67C73',
+    label: 'Bubblegum pink',
+  },
+  {
+    color: '#F4511E',
+    label: 'Tangerine',
+  },
+  {
+    color: '#F6BF26',
+    label: 'Egg yellow',
+  },
+  {
+    color: '#33B679',
+    label: 'Emerald green',
+  },
+  {
+    color: '#0B8043',
+    label: 'Moss green',
+  },
+  {
+    color: '#039BE5',
+    label: 'Turquoise',
+  },
+  {
+    color: '#3F51B5',
+    label: 'Blueberry blue',
+  },
+  {
+    color: '#7986CB',
+    label: 'Lavender',
+  },
+  {
+    color: '#8E24AA',
+    label: 'Deep purple',
+  },
+  {
+    color: '#616161',
+    label: 'Graphite',
+  },
+  {
+    color: '#4285F4',
+    label: 'Calendar color',
+  }
+];

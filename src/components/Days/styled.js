@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #95dada;
+  background-color: #ededed;
   border: 1px solid grey;
   border-radius: 5px;
   padding: 25px;
@@ -12,6 +12,7 @@ export const Container = styled.div`
   backface-visibility: hidden;
   transform: translateZ(0);
   transition: transform 0.25s ease-out;
+  color: #000;
 
   &:hover {
     transform: scale(1.05);

@@ -13,3 +13,14 @@
   width: 90vw;
   box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
 }
+
+.modal-rodal-container {
+  z-index: 9999 !important;
+  font-size: 12px;
+  font-family: "Nunito", sans-serif;
+}
+
+.swal2-container {
+  z-index: 10000 !important;
+  font-family: "Nunito", sans-serif;
+}
