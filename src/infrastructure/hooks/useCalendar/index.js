@@ -16,7 +16,8 @@ const useCalendar = () => {
     calendarAddReminderDispatch,
     calendarSelectedReminderDispatch,
     calendarUpdateReminderDispatch,
-    calendarDeleteRemindersByIdIDispatch
+    calendarDeleteRemindersByIdIDispatch,
+    calendarModalChangeVisibleDispatch
   } = dispatchers;
 
   // Bind Actions
@@ -25,7 +26,8 @@ const useCalendar = () => {
     calendarAddReminderDispatch,
     calendarSelectedReminderDispatch,
     calendarUpdateReminderDispatch,
-    calendarDeleteRemindersByIdIDispatch
+    calendarDeleteRemindersByIdIDispatch,
+    calendarModalChangeVisibleDispatch
   }, dispatch);
 
   return { ...calendar, ...calendarActions };

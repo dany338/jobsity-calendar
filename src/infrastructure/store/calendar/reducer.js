@@ -3,7 +3,8 @@ import {
   CALENDAR_ADD_REMINDER,
   CALENDAR_SELECTED_REMINDER,
   CALENDAR_UPDATE_REMINDER,
-  CALENDAR_DELETE_REMINDERS_BY_ID
+  CALENDAR_DELETE_REMINDERS_BY_ID,
+  CALENDAR_MODAL_CHANGE_VISIBLE
 } from './types';
 
 const now = new Date();
@@ -13,6 +14,7 @@ const initialState = {
   currentDate: now,
   reminderSelected: null,
   error: null,
+  visible: false,
 };
 
 const calendar = (state = initialState, { type, payload }) => {
@@ -57,6 +59,14 @@ const calendar = (state = initialState, { type, payload }) => {
         error: null,
         reminders: state.reminders.filter(({ _id }) => !isReminder(_id))
       };
+    }
+
+    case CALENDAR_MODAL_CHANGE_VISIBLE: {
+      return {
+        ...state,
+        error: null,
+        visible: payload
+      }
     }
 
     default: {

@@ -19,14 +19,14 @@ import Calendar from '../Calendar';
 import { monthsYear } from '../../infrastructure/config/const';
 
 const Content = () => {
-  const { calendarChangeMonthDispatch, currentDate, reminderSelected } = useCalendar();
+  const { calendarChangeMonthDispatch, calendarModalChangeVisibleDispatch, currentDate, reminderSelected } = useCalendar();
   const month = currentDate.getMonth();
   const year = currentDate.getFullYear();
 
   const handleChangeMonth = async (e, direction) => {
+    const today = new Date();
     let newYear = year;
     let newMonth = month;
-    let newDayMonth = 1;
     if (month === 0 && direction === '<') {
       newMonth = 11;
       newYear = year - 1;
@@ -36,13 +36,14 @@ const Content = () => {
     } else {
       newMonth = (direction === '>') ? month + 1 : month - 1;
     }
+    let newDayMonth = newYear === today.getFullYear() && newMonth === today.getMonth() ? today.getDate() : 1;
     const newDate = new Date(newYear, newMonth, newDayMonth);
     await calendarChangeMonthDispatch(newDate);
   };
 
   const handleAddReminder = async e => {
     e.preventDefault();
-
+    await calendarModalChangeVisibleDispatch(true);
   };
 
   return (

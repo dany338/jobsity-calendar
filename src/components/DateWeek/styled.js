@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+  background-color: ${(props) => (props.isCurrentDate) ? 'lightgray' : '#fff' };
   border: 1px solid grey;
   border-radius: 5px;
   padding: 10px 10px 25px;

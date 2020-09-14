@@ -20,7 +20,8 @@ const Sidebar = () => {
 
   const {
     reminders,
-    calendarSelectedReminderDispatch
+    calendarSelectedReminderDispatch,
+    calendarModalChangeVisibleDispatch
   } = useCalendar();
 
   const handleSelection = async (e, reminder) => {
@@ -30,7 +31,7 @@ const Sidebar = () => {
 
   const handleAddReminder = async e => {
     e.preventDefault();
-
+    await calendarModalChangeVisibleDispatch(true);
   };
 
   return (

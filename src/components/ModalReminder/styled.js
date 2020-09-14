@@ -6,7 +6,6 @@ export const Container = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   width: 100%;
-  padding: 10px;
 
   .modal__title > h4 {
     font-size: 14px;
@@ -89,6 +88,43 @@ export const Container = styled.div`
     padding: 2px 8px;
     font: inherit;
     cursor: pointer;
+  }
+
+  .modal__input {
+    display: flex;
+    align-items: center;
+    background-color: #f6f6f6;
+    height: 39px;
+    padding: 10px;
+  }
+
+  .modal__inputContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 35px;
+    border-radius: 20px;
+    background-color: ${props => props.read === 'true' ? 'lightgray !important' : 'white !important'};
+  }
+
+  .modal__inputContainer > .MuiSvgIcon-root {
+    color: gray;
+    padding: 10px;
+  }
+
+  .modal__inputContainer > input {
+    border: none;
+    outline-width: 0;
+    margin-left: 10px;
+    width: 90%;
+    background-color: ${props => props.readOnly ? 'lightgray !important' : 'white !important'};
+  }
+
+  .palets__color {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 `;
 
