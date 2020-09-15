@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ModalReminder = ({ onClose }) => {
-  const [cookies, _] = useCookies(['titleReminder']);
+  const [cookies, setCookie, removeCookie] = useCookies(['titleReminder']);
   const classes = useStyles();
   const [weather, setWeather] = useState(null);
   const [color, setColor] = useState('#4285F4');
@@ -57,10 +57,36 @@ const ModalReminder = ({ onClose }) => {
   const {
     calendarAddReminderDispatch,
     calendarUpdateReminderDispatch,
+    calendarDeleteRemindersByIdIDispatch,
     reminderSelected,
     visible,
     currentDate
   } = useCalendar();
+
+  const handleDeleteAction = async e => {
+    e.preventDefault();
+    if(reminderSelected) {
+      const reminder = [reminderSelected._id];
+      const {msg, err} = await calendarDeleteRemindersByIdIDispatch(reminder);
+      if(err) {
+        Swal.fire({
+          title: 'Oops...',
+          icon: 'error',
+          text: `Something went wrong! ${msg}`,
+          confirmButtonText: 'OK'
+        })
+      } else {
+        titleInputRef.current.value = '';
+        dateInputRef.current.value = '';
+        timeInputRef.current.value = '';
+        cityInputRef.current.value = '';
+        weatherInputRef.current.value = '';
+        setColor('#4285F4');
+        setWeather(null);
+        onClose();
+      }
+    }
+  };
 
   const handleAction = async e => {
     e.preventDefault();
@@ -71,7 +97,6 @@ const ModalReminder = ({ onClose }) => {
     } else {
       date = new Date(dateInputRef.current.value);
     }
-    console.log('handleAction',date, typeof dateInputRef.current.value);
     const reminder = {
       _id: reminderSelected ? reminderSelected._id : nanoid(),
       date,
@@ -92,6 +117,8 @@ const ModalReminder = ({ onClose }) => {
           confirmButtonText: 'OK'
         })
       } else {
+        removeCookie('titleReminder');
+        setCookie('titleReminder', '');
         titleInputRef.current.value = '';
         dateInputRef.current.value = '';
         timeInputRef.current.value = '';
@@ -109,7 +136,6 @@ const ModalReminder = ({ onClose }) => {
         confirmButtonText: 'OK'
       })
     }
-    // e.stopPropagation();
   };
 
   const handleChangeCity = async e => {
@@ -117,13 +143,12 @@ const ModalReminder = ({ onClose }) => {
     const { value: query } = e.currentTarget;
     if(query.length > 2) {
       const data = await WeatherServices.apiWeather.getWeather(query);
-      console.log('data', data);
       if(typeof data === 'object') {
         const { coord, main, weather, sys } = data;
         const { country } = sys;
-        const { temp, temp_min, temp_max, humidity, pressure } = main;
+        const { temp, humidity } = main;
         const { lon: lng, lat } = coord;
-        const { main: title, description, icon } = weather[0];
+        const { main: title, description } = weather[0];
         weatherInputRef.current.value = `${temp}°c humidity: ${humidity} ${title} - ${description} country: ${country} lon: ${lng} lat: ${lat}`;
         setWeather(data);
       }
@@ -132,12 +157,11 @@ const ModalReminder = ({ onClose }) => {
 
   const load = useCallback(async () => {
     if(reminderSelected !== null) {
-      console.log('entro por aca 1');
       const { coord, main, weather, sys } = reminderSelected.weather;
       const { country } = sys;
-      const { temp, temp_min, temp_max, humidity, pressure } = main;
+      const { temp, humidity } = main;
       const { lon: lng, lat } = coord;
-      const { main: title, description, icon } = weather[0];
+      const { main: title, description  } = weather[0];
 
       titleInputRef.current.value = reminderSelected.title;
 
@@ -153,8 +177,6 @@ const ModalReminder = ({ onClose }) => {
       setWeather(reminderSelected.weather);
       setColor(reminderSelected.color);
     } else {
-      console.log(currentDate.toLocaleDateString(), currentDate.toLocaleTimeString());
-      // dateInputRef.current.value = currentDate.toISOString().split('T')[0];
       const newDate = currentDate.toLocaleDateString().split(',')[0];
       const newDateFormat = newDate.split('/');
       const newMonth = (newDateFormat[0] < 10) ? `0${newDateFormat[0]}` : newDateFormat[0];
@@ -166,7 +188,6 @@ const ModalReminder = ({ onClose }) => {
       const newHour = (newTime[0] < 10) ? `0${newTime[0]}` : newTime[0];
       const hourReplaceIni = Object.entries(hourMilitar).filter(([_, value]) => (value === newHour));
       timeInputRef.current.value = (hourReplaceIni.length > 0) ? `${hourReplaceIni[0][0]}:${newTime[1]}` : `${newHour}:${newTime[1]}`;
-      console.log('entro por aca 2', `${newHour}:${newTime[1]}`, hourReplaceIni);
       titleInputRef.current.value = cookies.titleReminder ? cookies.titleReminder : '';
     }
   }, [cookies, currentDate, reminderSelected]);
@@ -250,6 +271,16 @@ const ModalReminder = ({ onClose }) => {
           >
             Save reminder
           </Button>
+          {reminderSelected && (
+            <Button
+              variant="outlined"
+              className={classes.button}
+              endIcon={<Send />}
+              onClick={(e) => handleDeleteAction(e)}
+            >
+              Delete reminder
+            </Button>
+          )}
         </div>
       </Container>
     </Rodal>,

@@ -15,7 +15,7 @@ export const calendarChangeMonthDispatch = date => {
       return { msg: `month changed`, err: false };
     } catch (error) {
       console.error(error);
-      return { msg: 'An error was generated please consult the administrator!' };
+      return { msg: 'An error was generated please consult the administrator!', err: true };
     }
   };
 };
@@ -27,7 +27,7 @@ export const calendarAddReminderDispatch = reminder => {
       return { msg: `reminder Added`, err: false };
     } catch (error) {
       console.error(error);
-      return { msg: 'An error was generated please consult the administrator!' };
+      return { msg: 'An error was generated please consult the administrator!', err: true };
     }
   };
 };
@@ -39,7 +39,7 @@ export const calendarSelectedReminderDispatch = reminder => {
       return { msg: `month changed`, err: false };
     } catch (error) {
       console.error(error);
-      return { msg: 'An error was generated please consult the administrator!' };
+      return { msg: 'An error was generated please consult the administrator!', err: true };
     }
   };
 };
@@ -51,7 +51,7 @@ export const calendarUpdateReminderDispatch = reminder => {
       return { msg: `reminder updated`, err: false };
     } catch (error) {
       console.error(error);
-      return { msg: 'An error was generated please consult the administrator!' };
+      return { msg: 'An error was generated please consult the administrator!', err: true };
     }
   };
 };
@@ -63,7 +63,7 @@ export const calendarDeleteRemindersByIdIDispatch = reminders => {
       return { msg: `month changed`, err: false };
     } catch (error) {
       console.error(error);
-      return { msg: 'An error was generated please consult the administrator!' };
+      return { msg: 'An error was generated please consult the administrator!', err: true };
     }
   };
 };
@@ -75,7 +75,7 @@ export const calendarModalChangeVisibleDispatch = visible => {
       return { msg: `modal visible changed`, err: false };
     } catch (error) {
       console.error(error);
-      return { msg: 'An error was generated please consult the administrator!' };
+      return { msg: 'An error was generated please consult the administrator!', err: true };
     }
   };
 };

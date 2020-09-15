@@ -42,7 +42,7 @@ const calendar = (state = initialState, { type, payload }) => {
         ...state,
         error: null,
         reminderSelected: payload,
-        currentDate: payload ? payload.date : new Date()
+        // currentDate: payload ? payload.date : new Date()
       };
     }
 
