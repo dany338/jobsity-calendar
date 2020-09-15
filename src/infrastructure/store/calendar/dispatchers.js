@@ -4,7 +4,8 @@ import {
   calendarSelectedReminderInit,
   calendarUpdateReminderInit,
   calendarDeleteRemindersByIdInit,
-  calendarModalChangeVisibleInit
+  calendarModalChangeVisibleInit,
+  calendarResetAllInit
 } from './actions';
 
 export const calendarChangeMonthDispatch = date => {
@@ -23,7 +24,7 @@ export const calendarAddReminderDispatch = reminder => {
   return async dispatch => {
     try {
       dispatch(calendarAddReminderInit(reminder));
-      return { msg: `month changed`, err: false };
+      return { msg: `reminder Added`, err: false };
     } catch (error) {
       console.error(error);
       return { msg: 'An error was generated please consult the administrator!' };
@@ -47,7 +48,7 @@ export const calendarUpdateReminderDispatch = reminder => {
   return async dispatch => {
     try {
       dispatch(calendarUpdateReminderInit(reminder));
-      return { msg: `month changed`, err: false };
+      return { msg: `reminder updated`, err: false };
     } catch (error) {
       console.error(error);
       return { msg: 'An error was generated please consult the administrator!' };
@@ -75,6 +76,16 @@ export const calendarModalChangeVisibleDispatch = visible => {
     } catch (error) {
       console.error(error);
       return { msg: 'An error was generated please consult the administrator!' };
+    }
+  };
+};
+
+export const calendarResetAllInitDispatch = () => {
+  return async dispatch => {
+    try {
+      dispatch(calendarResetAllInit());
+    } catch (error) {
+      console.error(error);
     }
   };
 };

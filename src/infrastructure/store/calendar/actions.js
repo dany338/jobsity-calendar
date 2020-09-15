@@ -4,7 +4,8 @@ import {
   CALENDAR_SELECTED_REMINDER,
   CALENDAR_UPDATE_REMINDER,
   CALENDAR_DELETE_REMINDERS_BY_ID,
-  CALENDAR_MODAL_CHANGE_VISIBLE
+  CALENDAR_MODAL_CHANGE_VISIBLE,
+  CALENDAR_RESET_ALL
 } from './types';
 
 export const calendarChangeMonthInit = date => ({ type: CALENDAR_CHANGE_MONTH, payload: date });
@@ -13,3 +14,4 @@ export const calendarSelectedReminderInit = reminder => ({ type: CALENDAR_SELECT
 export const calendarUpdateReminderInit = reminder => ({ type: CALENDAR_UPDATE_REMINDER, payload: reminder });
 export const calendarDeleteRemindersByIdInit = reminders => ({ type: CALENDAR_DELETE_REMINDERS_BY_ID, payload: reminders });
 export const calendarModalChangeVisibleInit = visible => ({ type: CALENDAR_MODAL_CHANGE_VISIBLE, payload: visible });
+export const calendarResetAllInit = () => ({ type: CALENDAR_RESET_ALL });

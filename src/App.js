@@ -1,4 +1,5 @@
 import React, { Suspense, lazy } from 'react';
+import { withCookies } from 'react-cookie';
 import './App.css';
 import Sidebar from './components/Sidebar';
 import Content from './components/Content';
@@ -8,10 +9,14 @@ const ModalReminder = lazy(() => import('./components/ModalReminder'));
 /* Hooks */
 
 const App = () => {
-  const { calendarModalChangeVisibleDispatch } = useCalendar();
+  const {
+    calendarModalChangeVisibleDispatch,
+    calendarSelectedReminderDispatch
+  } = useCalendar();
 
   const handleCloseModal = async () => {
     await calendarModalChangeVisibleDispatch(false);
+    await calendarSelectedReminderDispatch(null);
   };
 
   return (
@@ -29,4 +34,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default withCookies(App);

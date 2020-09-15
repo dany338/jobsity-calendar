@@ -1,7 +1,15 @@
 export const dateFormat = date => {
   const newDate = new Date(date);
-  const onlyDate = newDate.toUTCString();
+  const onlyDate = newDate.toLocaleDateString();
   return onlyDate;
+};
+
+export const isSomeKeyEmpty = obj => {
+  for(var key in obj) {
+      if(obj[key] === '')
+          return true;
+  }
+  return false;
 };
 
 export const dayOfWeek = (day, month, year) => {

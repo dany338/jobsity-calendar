@@ -4,7 +4,8 @@ import {
   CALENDAR_SELECTED_REMINDER,
   CALENDAR_UPDATE_REMINDER,
   CALENDAR_DELETE_REMINDERS_BY_ID,
-  CALENDAR_MODAL_CHANGE_VISIBLE
+  CALENDAR_MODAL_CHANGE_VISIBLE,
+  CALENDAR_RESET_ALL
 } from './types';
 
 const now = new Date();
@@ -31,6 +32,7 @@ const calendar = (state = initialState, { type, payload }) => {
       return {
         ...state,
         error: null,
+        reminderSelected: null,
         reminders: [ ...state.reminders, payload]
       };
     }
@@ -39,7 +41,8 @@ const calendar = (state = initialState, { type, payload }) => {
       return {
         ...state,
         error: null,
-        reminderSelected: payload
+        reminderSelected: payload,
+        currentDate: payload ? payload.date : new Date()
       };
     }
 
@@ -47,7 +50,7 @@ const calendar = (state = initialState, { type, payload }) => {
       return {
         ...state,
         error: null,
-        reminders: state.reminders.map((reminder) => reminder._id === payload.id ? payload : reminder)
+        reminders: state.reminders.map((reminder) => reminder._id === payload._id ? payload : reminder)
       };
     }
 
@@ -66,6 +69,17 @@ const calendar = (state = initialState, { type, payload }) => {
         ...state,
         error: null,
         visible: payload
+      }
+    }
+
+    case CALENDAR_RESET_ALL: {
+      return {
+        ...state,
+        error: null,
+        visible: false,
+        reminders: [],
+        currentDate: new Date(),
+        reminderSelected: null,
       }
     }
 

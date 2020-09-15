@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { useCookies } from 'react-cookie';
 import { Avatar, IconButton } from '@material-ui/core';
 import {
   InsertEmoticon,
@@ -7,6 +8,7 @@ import {
   KeyboardArrowLeft,
   KeyboardArrowRight
 } from '@material-ui/icons';
+import Swal from 'sweetalert2';
 /* Style Components */
 import { Container } from './styled';
 /* Assets */
@@ -19,7 +21,15 @@ import Calendar from '../Calendar';
 import { monthsYear } from '../../infrastructure/config/const';
 
 const Content = () => {
-  const { calendarChangeMonthDispatch, calendarModalChangeVisibleDispatch, currentDate, reminderSelected } = useCalendar();
+  const [_, setCookie, removeCookie] = useCookies(['titleReminder']);
+  const titleReminderInput = useRef(null);
+  const {
+    calendarChangeMonthDispatch,
+    calendarModalChangeVisibleDispatch,
+    calendarResetAllInitDispatch,
+    currentDate,
+    reminderSelected
+  } = useCalendar();
   const month = currentDate.getMonth();
   const year = currentDate.getFullYear();
 
@@ -43,7 +53,28 @@ const Content = () => {
 
   const handleAddReminder = async e => {
     e.preventDefault();
-    await calendarModalChangeVisibleDispatch(true);
+    if(titleReminderInput.current.value !== '') {
+      setCookie('titleReminder', titleReminderInput.current.value);
+      await calendarModalChangeVisibleDispatch(true);
+    } else {
+      Swal.fire({
+        title: 'Fill the field title reminder!',
+        icon: 'info',
+        text: `Something field there is empty!. `,
+        confirmButtonText: 'OK'
+      })
+    }
+  };
+
+  const handleChangeTitle = e => {
+    if(titleReminderInput.current.value === '') {
+      removeCookie('titleReminder');
+    }
+  };
+
+  const handleResetCalendar = async e => {
+    e.preventDefault();
+    await calendarResetAllInitDispatch();
   };
 
   return (
@@ -63,7 +94,7 @@ const Content = () => {
         </div>
 
         <div className="chat__headerRight">
-          <IconButton>
+          <IconButton onClick={(e) => handleResetCalendar(e)}>
             <RotateLeft />
           </IconButton>
         </div>
@@ -76,8 +107,7 @@ const Content = () => {
       <div className="content__footer">
         <InsertEmoticon />
         <form>
-          <input placeholder="Type a your new reminder or clicked in specific date of calendar" type="text" />
-          <button type="submit">Send a comment</button>
+          <input ref={titleReminderInput} placeholder="Type a your new reminder or clicked in specific date of calendar and clicked in the send icon button" type="text" onChange={(e) => handleChangeTitle(e)} />
         </form>
         <IconButton onClick={(e) => handleAddReminder(e)}>
           <Send />
